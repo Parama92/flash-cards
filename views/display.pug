@@ -1,0 +1,38 @@
+extends layout
+
+block content
+    
+    .row
+        .col-6.offset-3
+            .row.mb-5
+                .col
+                    h2.text-center Flash Card
+            .row.flash-card.mb-5
+                .col
+                    p
+                        span.word #{word.word || word} 
+                        span 
+                            audio(src=`${pronunciation}` controls) Your browser does not support the audio element.
+                            i.fas.fa-volume-up.speak
+
+                    .row
+                        .col
+                            p 
+                                span Definition: &nbsp;
+                                each definition in vocab.definitions
+                                    span #{definition}, 
+                            p 
+                                if (vocab.examples.length > 0)
+                                    span Examples: &nbsp;
+                                    each example in vocab.examples  
+                                        span #{example};
+                    .row.btn-container
+                        each btn in status
+                            .col
+                                button.btn.mb-3.btn-outline-warning.btn-block.status-btn(id=`${btn}`)= btn
+            .row.mb-5
+                .col
+                    button#unlearn.btn.btn-outline-danger.btn-block Unlearn
+    .arrow
+        a(href="/generate")
+            i.fas.fa-angle-double-right
